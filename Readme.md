@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Алина Сабитова](https://up.htmlacademy.ru/univer-js1/1/user/2221191).
-* Наставник: `Дмитрий Рябинин`(https://htmlacademy.ru/profile/haschish/63289).
+* Наставник: [Дмитрий Рябинин](https://htmlacademy.ru/profile/haschish/63289).
 
 ---
 
