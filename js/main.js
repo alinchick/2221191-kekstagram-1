@@ -4,9 +4,10 @@ function getRandomIntInclusive(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+getRandomIntInclusive();
 
-//Длина комментария не более 140 символов;
-function checkCommentLength (comment, limit) {
-  return comment.length <= limit;
+//Функция для проверки максимальной длины строки;
+function checkCommentLength (string, limit) {
+  return string.length <= limit;
 }
-console.log(checkCommentLength('Привет', 2));
+checkCommentLength();
