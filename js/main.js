@@ -1,13 +1,15 @@
-//Функция возвращает случайное целое число в переданном диапазоне включительно;
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
+function getRandomNumber(min, max) {
+  if (min < 0 || max < 0) {
+    return 0;
+  }
+  const numbers = [min, max];
+  if (min >= max) {
+    min = numbers[1];
+    max = numbers[0];
+  }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-getRandomIntInclusive();
 
-//Функция для проверки максимальной длины строки;
-function checkCommentLength (string, limit) {
+function checkLength (string, limit) {
   return string.length <= limit;
 }
-checkCommentLength();
