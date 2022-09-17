@@ -1,4 +1,4 @@
-const getRandomNumber = function (min, max) {
+function getRandomNumber(min, max) {
   if (min < 0 || max < 0) {
     return 0;
   }
@@ -9,7 +9,9 @@ const getRandomNumber = function (min, max) {
   }
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+getRandomNumber();
 
-const checkLength = function (string, limit) {
+function checkLength(string, limit) {
   return string.length <= limit;
 }
+checkLength();
