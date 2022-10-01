@@ -39,7 +39,7 @@ function checkStringLength (string, length) {
   return string.length <= length;
 }
 
-checkLength();
+checkStringLength();
 
 const getRandomArrayElement = (elements) => {
   return elements[getRandomPositiveInteger(0, elements.length - 1)];
