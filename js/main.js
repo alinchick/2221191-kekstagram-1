@@ -41,21 +41,18 @@ function checkStringLength (string, length) {
 
 checkStringLength();
 
-const getRandomArrayElement = (elements) => {
-  return elements[getRandomPositiveInteger(0, elements.length - 1)];
-};
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const createUser = () => {
-  return {
+const createUser = () =>
+  ({
     id: getRandomPositiveInteger(1, 25),
     url: `photos/{{{${getRandomPositiveInteger(1, 25)}}}.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomPositiveInteger(15, 200),
     comments: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES),
-    avatar: `img/avatar-{{${getRandomPositiveInteger(1, 6)}}}.svg`
-  };
-};
+    avatar: `img/avatar-{{${getRandomPositiveInteger(1, 6)}}}.svg`,
+});
 
 const similarUsers = Array.from({length: 25}, createUser);
 
