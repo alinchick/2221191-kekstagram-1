@@ -28,37 +28,32 @@ const DESCRIPTION = [
   'фотка прикл)',
 ];
 
-const getRandomNumber = (min, max) => {
-  if (min < 0 || max < 0) {
-    return 0;
-  }
-  const numbers = [min, max];
-  if (min >= max) {
-    min = numbers[1];
-    max = numbers[0];
-  }
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+function getRandomPositiveInteger (a, b) {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
 }
 
-const checkLength = (string, limit) => {
-  return string.length <= limit;
+function checkStringLength (string, length) {
+  return string.length <= length;
 }
 
 checkLength();
 
 const getRandomArrayElement = (elements) => {
-  return elements[getRandomNumber(0, elements.length - 1)];
+  return elements[getRandomPositiveInteger(0, elements.length - 1)];
 };
 
 const createUser = () => {
   return {
-    id: getRandomNumber(1, 25),
-    url: `photos/{{{${getRandomNumber(1, 25)}}}.jpg`,
+    id: getRandomPositiveInteger(1, 25),
+    url: `photos/{{{${getRandomPositiveInteger(1, 25)}}}.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
-    likes: getRandomNumber(15, 200),
+    likes: getRandomPositiveInteger(15, 200),
     comments: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES),
-    avatar: `img/avatar-{{${getRandomNumber(1, 6)}}}.svg`
+    avatar: `img/avatar-{{${getRandomPositiveInteger(1, 6)}}}.svg`
   };
 };
 
