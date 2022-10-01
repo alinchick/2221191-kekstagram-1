@@ -28,7 +28,7 @@ const DESCRIPTION = [
   'фотка прикл)',
 ];
 
-function getRandomNumber(min, max) {
+const getRandomNumber = (min, max) => {
   if (min < 0 || max < 0) {
     return 0;
   }
@@ -40,9 +40,11 @@ function getRandomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function checkLength(string, limit) {
+const checkLength = (string, limit) => {
   return string.length <= limit;
 }
+
+checkLength();
 
 const getRandomArrayElement = (elements) => {
   return elements[getRandomNumber(0, elements.length - 1)];
@@ -56,6 +58,7 @@ const createUser = () => {
     likes: getRandomNumber(15, 200),
     comments: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES),
+    avatar: `img/avatar-{{${getRandomNumber(1, 6)}}}.svg`
   };
 };
 
