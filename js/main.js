@@ -52,9 +52,9 @@ const createUser = () =>
     comments: getRandomArrayElement(COMMENTS),
     name: getRandomArrayElement(NAMES),
     avatar: `img/avatar-{{${getRandomPositiveInteger(1, 6)}}}.svg`,
-});
+  });
 
-const similarUsers = Array.from({length: 25}, createUser);
+Array.from({length: 25}, createUser);
 
 
 // id, число — идентификатор описания. Это число от 1 до 25. Идентификаторы не должны повторяться.
