@@ -45,22 +45,16 @@ checkStringLength();
 
 const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-const repeat = [];
+let number = 0;
 
-const getId = (array) => {
-  let number = getRandomPositiveInteger(1, USERS_COUNT);
-  for (let i = 0; i < array.length; i ++) {
-    while (array[i] === number) {
-      number = getRandomPositiveInteger(1, USERS_COUNT);
-    }
-    array.push(number);
-    return number;
-  }
+const getId = () => {
+  number ++;
+  return number;
 };
 
 const createUser = () =>
   ({
-    id: getId(repeat),
+    id: getId(),
     url: `photos/{{{${getRandomPositiveInteger(1, 25)}}}.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomPositiveInteger(15, 200),
