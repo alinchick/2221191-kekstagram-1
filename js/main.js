@@ -1,3 +1,5 @@
 import {generatePosts} from './data.js';
+import {renderPictures} from './drawPicture.js';
 
-generatePosts();
+const data = generatePosts();
+renderPictures(data);

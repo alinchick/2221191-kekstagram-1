@@ -50,7 +50,7 @@ const createPost = () => {
   x = getId();
   return {
     id: x,
-    url: `photos/{{{${x}}}.jpg`,
+    url: `photos/${x}.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomPositiveInteger(15, 200),
     comments: Array.from({length: COMMENTS_COUNT}, getComment),
