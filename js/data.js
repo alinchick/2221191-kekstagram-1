@@ -4,7 +4,7 @@ import {getId} from './util.js';
 import {getCommentId} from './util.js';
 
 const USERS_COUNT = 25;
-const COMMENTS_COUNT = 3;
+const COMMENTS_COUNT = 5;
 
 const NAMES = [
   'Иван',
@@ -36,7 +36,7 @@ const DESCRIPTION = [
   'фотка прикл)',
 ];
 
-const getComment = () =>
+const createComment = () =>
   ({
     id: getCommentId(),
     avatar: `img/avatar-${getRandomPositiveInteger(1, 6)}.svg`,
@@ -53,7 +53,7 @@ const createPost = () => {
     url: `photos/${x}.jpg`,
     description: getRandomArrayElement(DESCRIPTION),
     likes: getRandomPositiveInteger(15, 200),
-    comments: Array.from({length: COMMENTS_COUNT}, getComment),
+    comments: Array.from({length: COMMENTS_COUNT}, createComment),
   };
 };
 
