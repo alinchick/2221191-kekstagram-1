@@ -21,7 +21,7 @@ const getCommentId = () => {
   return commentNumber;
 };
 
-export {getRandomPositiveInteger};
-export {getRandomArrayElement};
-export {getId};
-export {getCommentId};
+export {getRandomPositiveInteger,
+  getRandomArrayElement,
+  getId,
+  getCommentId};

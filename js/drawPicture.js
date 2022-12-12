@@ -1,20 +1,26 @@
+import {renderBigPhoto} from './drawBigPicture.js';
+
 const pictureTemplate = document.querySelector('#picture').content;
 const picturesList = document.querySelector('.pictures');
+const fragment = document.createDocumentFragment();
 
-const CreatePictureElement = (obj) => {
-  const userPicture = pictureTemplate.cloneNode(true);
+const createPictureElement = (obj) => {
+  const userPicture = pictureTemplate.querySelector('.picture').cloneNode(true);
   userPicture.querySelector('.picture__img').src = obj.url;
   userPicture.querySelector('.picture__comments').textContent = obj.comments.length;
   userPicture.querySelector('.picture__likes').textContent = obj.likes;
-  return userPicture;
+
+  userPicture.addEventListener('click', () => {
+    renderBigPhoto(obj);
+  });
+  fragment.appendChild(userPicture);
 };
 
 const renderPictures = (array) => {
-  const fragment = document.createDocumentFragment();
   for (const obj of array) {
-    fragment.appendChild(CreatePictureElement(obj));
+    createPictureElement(obj);
   }
-  picturesList.append(fragment);
+  return picturesList.appendChild(fragment);
 };
 
 export {renderPictures};
