@@ -21,7 +21,12 @@ const getCommentId = () => {
   return commentNumber;
 };
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isRightString = (str, maxLen) => String(str).length <= maxLen;
+
 export {getRandomPositiveInteger,
   getRandomArrayElement,
   getId,
-  getCommentId};
+  getCommentId,
+  isEscapeKey,
+  isRightString};
