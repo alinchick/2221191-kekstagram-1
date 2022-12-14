@@ -4,7 +4,7 @@ import {getId} from './util.js';
 import {getCommentId} from './util.js';
 
 const USERS_COUNT = 25;
-const COMMENTS_COUNT = 5;
+const COMMENTS_COUNT = 12;
 
 const NAMES = [
   'Иван',

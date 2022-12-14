@@ -6,21 +6,29 @@ const commentElement = commentList.querySelector('.social__comment');
 const commenstLoader = document.querySelector('.comments-loader');
 const buttonClose = bigPicture.querySelector('.big-picture__cancel');
 
+let commentsCount = 0;
+
 const createComment = (comment) => {
   const commentObject = commentElement.cloneNode(true);
   commentObject.querySelector('.social__picture').src = comment.avatar;
   commentObject.querySelector('.social__picture').alt = comment.name;
   commentObject.querySelector('.social__text').textContent = comment.message;
-  return commentObject;
+
+  commentList.appendChild(commentObject);
 };
 
-const createCommentFragment = (array) => {
-  const commentFragment = document.createDocumentFragment();
-  for (const comment of array) {
-    const creatingComment = createComment(comment);
-    commentFragment.appendChild(creatingComment);
+const createComments = (comments) => {
+  for (const comment of comments.slice(commentsCount, commentsCount + 5)) {
+    createComment(comment);
+    commentsCount++;
   }
-  commentList.appendChild(commentFragment);
+  bigPicture.querySelector('.social__comment-count').innerHTML = `${commentsCount} из <span class="comments-count">${comments.length}</span> комментариев`;
+  if (commentsCount === comments.length) {
+    bigPicture.querySelector('.social__comments-loader').classList.add('hidden');
+  }
+  else {
+    bigPicture.querySelector('.social__comments-loader').classList.remove('hidden');
+  }
 };
 
 const renderBigPhoto = (bigPhoto) => {
@@ -30,6 +38,7 @@ const renderBigPhoto = (bigPhoto) => {
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onBigPictureEscPress);
     buttonClose.removeEventListener('click', onBigPictureCloseClick);
+    commentsCount = 0;
   };
 
   function onBigPictureCloseClick () {
@@ -53,8 +62,8 @@ const renderBigPhoto = (bigPhoto) => {
   bigPicture.querySelector('.comments-count').textContent = bigPhoto.comments.length;
   bigPicture.querySelector('.social__caption').textContent = bigPhoto.description;
 
-  createCommentFragment(bigPhoto.comments);
-  commenstLoader.classList.add('hidden');
+  createComments(bigPhoto.comments);
+  bigPicture.querySelector('.social__comments-loader').onclick = () => createComments(bigPhoto.comments);
 
   buttonClose.addEventListener('click', onBigPictureCloseClick);
   document.addEventListener('keydown', onBigPictureEscPress);
