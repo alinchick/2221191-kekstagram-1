@@ -1,4 +1,4 @@
-import {renderBigPhoto} from './drawBigPicture.js';
+import {renderBigPhoto} from './draw-big-picture.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const picturesList = document.querySelector('.pictures');
