@@ -1,4 +1,4 @@
-import {isRightString, isEscapeKey} from './util.js';
+import {isRightString} from './util.js';
 
 const HASHTAG_REGULAR_EXP = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const COMMENT_MAX_LENGTH = 140;
@@ -21,7 +21,7 @@ const isRightHashtags = (value) => {
 };
 
 const onFocusPreventClose = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (evt.key === 'Escape') {
     evt.stopPropagation();
   }
 };
