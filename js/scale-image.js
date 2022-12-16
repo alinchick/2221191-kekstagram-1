@@ -20,19 +20,19 @@ const changeValue = (value) => {
   previewImage.style.transform = `scale(${num / 100})`;
 };
 
-const funcBigger = () => changeValue(1);
+const getScaleBigger = () => changeValue(1);
 
-const funcSmaller = () => changeValue(-1);
+const getScaleSmaller = () => changeValue(-1);
 
 
-const onResizeButtonClick = () => {
-  scaleControlBigger.addEventListener('click', funcBigger);
-  scaleControlSmaller.addEventListener('click', funcSmaller);
+const resizeImage = () => {
+  scaleControlBigger.addEventListener('click', getScaleBigger);
+  scaleControlSmaller.addEventListener('click', getScaleSmaller);
 };
 
 const deleteHandlers = () => {
-  scaleControlBigger.removeEventListener('click', funcBigger);
-  scaleControlSmaller.removeEventListener('click', funcSmaller);
+  scaleControlBigger.removeEventListener('click', getScaleBigger);
+  scaleControlSmaller.removeEventListener('click', getScaleSmaller);
 };
 
-export { onResizeButtonClick, changeValue, deleteHandlers };
+export { resizeImage, changeValue, deleteHandlers };

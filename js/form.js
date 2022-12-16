@@ -1,5 +1,5 @@
 import { validateForm } from './validation.js';
-import { onResizeButtonClick, deleteHandlers } from './scale-image.js';
+import { resizeImage, deleteHandlers } from './scale-image.js';
 import { changeFilter, deleteSlider } from './filter-image.js';
 
 const uploadFile = document.querySelector('#upload-file');
@@ -99,7 +99,7 @@ const renderUploadWindow = () => {
   uploadCancel.addEventListener('click', onCloseButtonPress);
   document.addEventListener('keydown', onEscPress);
   effectsField.addEventListener('change', changeFilter);
-  onResizeButtonClick();
+  resizeImage();
 };
 
 //Обработчик на открытие редктирования изобржения
