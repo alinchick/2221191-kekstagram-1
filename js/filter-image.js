@@ -1,8 +1,9 @@
 const previewImage = document.querySelector('.img-upload__preview').querySelector('img');
 const effectSlider = document.querySelector('.effect-level__slider');
-const effectLevelValue = document.querySelector('.effect-level__value');
+//const effectLevelValue = document.querySelector('.effect-level__value');
 const uploadImageEffectLevel = document.querySelector('.img-upload__effect-level');
 
+/*
 const EFFECTS = {
   NONE: {
     range: {min: 0, max: 1,},
@@ -84,6 +85,7 @@ const EFFECTS = {
     }
   }
 };
+*/
 
 
 const generateSlider = () => {
@@ -107,11 +109,11 @@ const changeFilter = (evt) => {
   uploadImageEffectLevel.classList.remove('hidden');
   previewImage.removeAttribute('class');
   previewImage.classList.add(`effects__preview--${effect}`);
-  effectSlider.noUiSlider.updateOptions(EFFECTS[effect].options);
-  effectSlider.noUiSlider.on('update', () => {
-    effectLevelValue.value = effectSlider.noUiSlider.get();
-    previewImage.style.filter = `${EFFECTS[effect].filter}(${effectLevelValue.value}${EFFECTS[effect].unit})`;
-  });
+  //effectSlider.noUiSlider.updateOptions(EFFECTS[effect].options);
+  //effectSlider.noUiSlider.on('update', () => {
+  //  effectLevelValue.value = effectSlider.noUiSlider.get();
+  //  previewImage.style.filter = `${EFFECTS[effect].filter}(${effectLevelValue.value}${EFFECTS[effect].unit})`;
+  //});
 };
 
 const deleteSlider = () => {
