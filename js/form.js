@@ -1,5 +1,5 @@
 import { validateForm } from './validation.js';
-import { onResizeButtonClick } from './scale-image.js';
+import { onResizeButtonClick, deleteHandlers } from './scale-image.js';
 import { changeFilter, deleteSlider } from './filter-image.js';
 
 const uploadFile = document.querySelector('#upload-file');
@@ -11,23 +11,26 @@ const commentInput = document.querySelector('.text__description');
 const body = document.querySelector('body');
 
 //const previewImage = document.querySelector('.img-upload__preview').querySelector('img');
-const scaleControlValue = document.querySelector('.scale__control--value');
+//const scaleControlValue = document.querySelector('.scale__control--value');
+//const scaleControlSmaller = document.querySelector('.scale__control--smaller');
+//const scaleControlBigger = document.querySelector('.scale__control--bigger');
 
-const image = document.querySelector('.img-upload__preview').querySelector('img');
+const imageUploadPreview = document.querySelector('.img-upload__preview').querySelector('img');
 const effectsField = document.querySelector('.img-upload__effects');
 
-//Закрыть окно загрузки изображения
+//Закрыть окно редактирования
 const closeUploadWindow = () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
   uploadCancel.removeEventListener('click', onCloseButtonPress);
   document.removeEventListener('keydown', onEscPress);
-  scaleControlValue.value = '100%';
   deleteSlider();
+  deleteHandlers();
   form.reset();
 };
 
+//Шаблон уведомления успешной отправки
 const templateSuccesMessage = document.querySelector('#success').content.querySelector('section');
 
 //Показать сообщение об успешной загрузке
@@ -51,6 +54,7 @@ const showSuccessMessage = () => {
   });
 };
 
+//Шаблон уведомления ошибки
 const templateErrorMessage = document.querySelector('#error').content.querySelector('section');
 
 //Показать сообщение об ошибке
@@ -72,10 +76,12 @@ const showErrorMessage = () => {
   });
 };
 
+//Закрыть окно редактирования(кнопка)
 function onCloseButtonPress () {
   closeUploadWindow();
 }
 
+//Закрыть окно редактирования(esc)
 function onEscPress (evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
@@ -84,8 +90,8 @@ function onEscPress (evt) {
 }
 
 const renderUploadWindow = () => {
-  image.removeAttribute('class');
-  image.removeAttribute('style');
+  imageUploadPreview.removeAttribute('class');
+  imageUploadPreview.removeAttribute('style');
 
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -96,10 +102,12 @@ const renderUploadWindow = () => {
   onResizeButtonClick();
 };
 
+//Обработчик на открытие редктирования изобржения
 uploadFile.addEventListener('change', () => {
   renderUploadWindow();
 });
 
+//Отправка формы
 form.addEventListener('submit', (evt) => {
   evt.preventDefault();
   if (validateForm(form, hashtagsInput, commentInput)) {

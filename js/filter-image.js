@@ -101,7 +101,7 @@ const changeFilter = (evt) => {
   const effect = evt.target.value;
   if (effect === 'none') {
     uploadImageEffectLevel.classList.add('hidden');
-    previewImage.style.filter = 'none';
+    previewImage.removeAttribute('class');
     return;
   }
   uploadImageEffectLevel.classList.remove('hidden');
