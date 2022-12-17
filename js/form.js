@@ -1,6 +1,7 @@
-import { validateForm } from './validation.js';
+import { validateForm, onFocusPreventClose } from './validation.js';
 import { resizeImage, deleteHandlers } from './scale-image.js';
-import { changeFilter, deleteSlider } from './filter-image.js';
+import { changeFilter, deleteSlider } from './effects-image.js';
+import { sendData } from './api.js';
 
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
@@ -8,15 +9,25 @@ const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const form = document.querySelector('.img-upload__form');
 const hashtagsInput = document.querySelector('.text__hashtags');
 const commentInput = document.querySelector('.text__description');
+const imageChoose = document.querySelector('.img-upload__start input[type=file]');
 const body = document.querySelector('body');
 
-//const previewImage = document.querySelector('.img-upload__preview').querySelector('img');
-//const scaleControlValue = document.querySelector('.scale__control--value');
-//const scaleControlSmaller = document.querySelector('.scale__control--smaller');
-//const scaleControlBigger = document.querySelector('.scale__control--bigger');
+const buttonSubmitUpload = document.querySelector('.img-upload__submit');
 
 const imageUploadPreview = document.querySelector('.img-upload__preview').querySelector('img');
 const effectsField = document.querySelector('.img-upload__effects');
+
+//Заблокировать кнопку отправки формы
+const blockSubmitButton = () => {
+  buttonSubmitUpload.textContent = 'Публикую...';
+  buttonSubmitUpload.disabled = true;
+};
+
+//Разблокировать кнопку отправки формы
+const unblockSubmitButton = () => {
+  buttonSubmitUpload.disabled = false;
+  buttonSubmitUpload.textContent = 'Опубликовать';
+};
 
 //Закрыть окно редактирования
 const closeUploadWindow = () => {
@@ -30,49 +41,16 @@ const closeUploadWindow = () => {
   form.reset();
 };
 
-//Шаблон уведомления успешной отправки
-const templateSuccesMessage = document.querySelector('#success').content.querySelector('section');
-
-//Показать сообщение об успешной загрузке
-const showSuccessMessage = () => {
-  const messageSuccessPopup = templateSuccesMessage.cloneNode(true);
-  messageSuccessPopup.style.zIndex = 100;
-  document.body.append(messageSuccessPopup);
-
-  const button = messageSuccessPopup.querySelector('button');
-
-  button.addEventListener('click', () => {
-    messageSuccessPopup.remove();
+const showUploadMessage = (isError) => {
+  const messageName = isError ? 'error' : 'success';
+  const templateMessage = document.querySelector(`#${messageName}`).content.querySelector('section');
+  const popupMessage = templateMessage.cloneNode(true);
+  popupMessage.style.zIndex = 100;
+  document.body.append(popupMessage);
+  const buttonClose = popupMessage.querySelector('button');
+  buttonClose.addEventListener('click', () => {
+    popupMessage.remove();
     closeUploadWindow();
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      messageSuccessPopup.remove();
-      closeUploadWindow();
-    }
-  });
-};
-
-//Шаблон уведомления ошибки
-const templateErrorMessage = document.querySelector('#error').content.querySelector('section');
-
-//Показать сообщение об ошибке
-const showErrorMessage = () => {
-  const messageErrorPopup = templateErrorMessage.cloneNode(true);
-  messageErrorPopup.style.zIndex = 100;
-  document.body.append(messageErrorPopup);
-
-  const button = messageErrorPopup.querySelector('button');
-  button.addEventListener('click', () => {
-    messageErrorPopup.remove();
-  });
-
-  document.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      messageErrorPopup.remove();
-      document.addEventListener('keydown', onEscPress);
-    }
   });
 };
 
@@ -89,7 +67,8 @@ function onEscPress (evt) {
   }
 }
 
-const renderUploadWindow = () => {
+//Показать окно редактирования изображения
+const openUploadWindow = () => {
   imageUploadPreview.removeAttribute('class');
   imageUploadPreview.removeAttribute('style');
 
@@ -98,25 +77,35 @@ const renderUploadWindow = () => {
 
   uploadCancel.addEventListener('click', onCloseButtonPress);
   document.addEventListener('keydown', onEscPress);
+  commentInput.onkeydown = (evt) => onFocusPreventClose(evt);
+  hashtagsInput.onkeydown = (evt) => onFocusPreventClose(evt);
   effectsField.addEventListener('change', changeFilter);
   resizeImage();
 };
 
-//Обработчик на открытие редктирования изобржения
-uploadFile.addEventListener('change', () => {
-  renderUploadWindow();
-});
+const renderUploadWindow = () => {
+  uploadFile.addEventListener('change', () => {
+    openUploadWindow();
+  });
 
-//Отправка формы
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (validateForm(form, hashtagsInput, commentInput)) {
-    showSuccessMessage();
-  }
-  else {
-    document.removeEventListener('keydown', onEscPress);
-    showErrorMessage();
-  }
-});
+  imageChoose.addEventListener('change', () => {
+    const image = imageChoose.files[0];
+    imageUploadPreview.src = URL.createObjectURL(image);
+  });
 
-export { form, uploadFile };
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    if (validateForm(form, hashtagsInput, commentInput)) {
+      sendData(() => {
+        blockSubmitButton();
+        setTimeout(showUploadMessage, 1500);
+      },
+      () => {
+        showUploadMessage(true);
+      },
+      new FormData(evt.target), unblockSubmitButton);
+    }
+  });
+};
+
+export { renderUploadWindow, closeUploadWindow, showUploadMessage };

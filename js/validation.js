@@ -1,4 +1,4 @@
-import {isRightString} from './util.js';
+import { isRightString } from './util.js';
 
 const HASHTAG_REGULAR_EXP = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 const COMMENT_MAX_LENGTH = 140;
@@ -38,4 +38,4 @@ const validateForm = (form, hashtags, comment) => {
   return pristine.validate();
 };
 
-export {validateForm, onFocusPreventClose};
+export { validateForm, onFocusPreventClose };

@@ -1,4 +1,4 @@
-import {renderBigPhoto} from './draw-big-picture.js';
+import { renderBigPhoto } from './draw-big-picture.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const picturesList = document.querySelector('.pictures');
@@ -23,4 +23,4 @@ const renderPictures = (array) => {
   return picturesList.appendChild(fragment);
 };
 
-export {renderPictures};
+export { renderPictures };
