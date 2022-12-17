@@ -1,8 +1,7 @@
-import { renderPictures } from './draw-picture.js';
 import { renderUploadWindow, showUploadMessage } from './form.js';
 import { getData } from './api.js';
-//import { generateSlider } from './effects-image.js';
+import { showFilteredPictures } from './filters-image.js';
 
-getData(renderPictures, showUploadMessage);
+getData(showFilteredPictures, showUploadMessage);
 renderUploadWindow();
 

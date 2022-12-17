@@ -20,7 +20,7 @@ const renderPictures = (array) => {
   for (const obj of array) {
     createPictureElement(obj);
   }
-  return picturesList.appendChild(fragment);
+  return picturesList.append(fragment);
 };
 
 export { renderPictures };
