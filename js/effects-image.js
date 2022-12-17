@@ -1,5 +1,5 @@
 const imageUploadPreview = document.querySelector('.img-upload__preview').querySelector('img');
-const effectLevelSlider = document.querySelector('.effect-level__slider');
+//const effectLevelSlider = document.querySelector('.effect-level__slider');
 //const effectLevelValue = document.querySelector('.effect-level__value');
 const uploadImageEffectLevel = document.querySelector('.img-upload__effect-level');
 
@@ -12,8 +12,8 @@ const EFFECTS = {chrome: { filter: 'grayscale', units: '', options: { range: { m
   */
 
 //const generateSlider = () => {
-  //uploadImageEffectLevel.classList.add('hidden');
-  /*
+//uploadImageEffectLevel.classList.add('hidden');
+/*
   noUiSlider.create(effectLevelSlider, {
     range: {min: 0, max: 100},
     start: 100,
