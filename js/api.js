@@ -1,15 +1,17 @@
-const getData = (onSuccess) => {
+const getData = (onSuccess, onError) => {
   fetch('https://26.javascript.pages.academy/kekstagram/data')
     .then((response) => {
       if (response.ok) {
         return response.json();
       }
-      throw new Error();
+      throw new Error(`${response.status} ${response.statusText}`);
     })
     .then((data) => {
       onSuccess(data);
     })
-    .catch(() => {});
+    .catch((err) => {
+      onError(err);
+    });
 };
 
 const sendData = (onSuccess, onFail, body, onFinal) => {
@@ -32,4 +34,4 @@ const sendData = (onSuccess, onFail, body, onFinal) => {
     }).finally(() => onFinal());
 };
 
-export {getData, sendData};
+export { getData, sendData };

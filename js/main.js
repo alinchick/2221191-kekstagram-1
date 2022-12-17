@@ -1,8 +1,8 @@
-//import {generatePosts} from './data.js';
-import {renderPictures} from './draw-picture.js';
-import {renderUploadWindow} from './form.js';
+import { renderPictures } from './draw-picture.js';
+import { renderUploadWindow, showUploadMessage } from './form.js';
 import { getData } from './api.js';
+//import { generateSlider } from './effects-image.js';
 
-getData(renderPictures);
+getData(renderPictures, showUploadMessage);
 renderUploadWindow();
 

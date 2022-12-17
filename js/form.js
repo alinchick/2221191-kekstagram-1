@@ -1,6 +1,6 @@
 import { validateForm, onFocusPreventClose } from './validation.js';
 import { resizeImage, deleteHandlers } from './scale-image.js';
-import { changeFilter, deleteSlider } from './filter-image.js';
+import { changeFilter, deleteSlider } from './effects-image.js';
 import { sendData } from './api.js';
 
 const uploadFile = document.querySelector('#upload-file');
@@ -41,15 +41,15 @@ const closeUploadWindow = () => {
   form.reset();
 };
 
-const showAlert = (isError) => {
-  const templateName = isError ? 'error' : 'success';
-  const template = document.querySelector(`#${templateName}`).content.querySelector('section');
-  const popup = template.cloneNode(true);
-  popup.style.zIndex = 100;
-  document.body.append(popup);
-  const button = popup.querySelector('button');
-  button.addEventListener('click', () => {
-    popup.remove();
+const showUploadMessage = (isError) => {
+  const messageName = isError ? 'error' : 'success';
+  const templateMessage = document.querySelector(`#${messageName}`).content.querySelector('section');
+  const popupMessage = templateMessage.cloneNode(true);
+  popupMessage.style.zIndex = 100;
+  document.body.append(popupMessage);
+  const buttonClose = popupMessage.querySelector('button');
+  buttonClose.addEventListener('click', () => {
+    popupMessage.remove();
     closeUploadWindow();
   });
 };
@@ -98,14 +98,14 @@ const renderUploadWindow = () => {
     if (validateForm(form, hashtagsInput, commentInput)) {
       sendData(() => {
         blockSubmitButton();
-        setTimeout(showAlert, 1500);
+        setTimeout(showUploadMessage, 1500);
       },
       () => {
-        showAlert(true);
+        showUploadMessage(true);
       },
       new FormData(evt.target), unblockSubmitButton);
     }
   });
 };
 
-export { renderUploadWindow, closeUploadWindow };
+export { renderUploadWindow, closeUploadWindow, showUploadMessage };
