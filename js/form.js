@@ -3,6 +3,8 @@ import { resizeImage, deleteHandlers } from './scale-image.js';
 import { changeFilter, deleteSlider } from './effects-image.js';
 import { sendData } from './api.js';
 
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -41,12 +43,14 @@ const closeUploadWindow = () => {
   form.reset();
 };
 
+//Показать сообщение об отправке
 const showUploadMessage = (isError) => {
   const messageName = isError ? 'error' : 'success';
   const templateMessage = document.querySelector(`#${messageName}`).content.querySelector('section');
   const popupMessage = templateMessage.cloneNode(true);
   popupMessage.style.zIndex = 100;
   document.body.append(popupMessage);
+
   const buttonClose = popupMessage.querySelector('button');
   buttonClose.addEventListener('click', () => {
     popupMessage.remove();
@@ -89,8 +93,14 @@ const renderUploadWindow = () => {
   });
 
   imageChoose.addEventListener('change', () => {
-    const image = imageChoose.files[0];
-    imageUploadPreview.src = URL.createObjectURL(image);
+    const file = imageChoose.files[0];
+    const fileName = file.name.toLowerCase();
+
+    const matches = FILE_TYPES.some((it) => fileName.endsWith(it));
+
+    if (matches) {
+      imageUploadPreview.src = URL.createObjectURL(file);
+    }
   });
 
   form.addEventListener('submit', (evt) => {
